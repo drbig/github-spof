@@ -61,7 +61,7 @@ func main() {
 					fmt.Printf("%s", err)
 					continue
 				}
-				text, _ := url.QueryUnescape(fmt.Sprintf("[%s] %s. by GitHub Status", m.Status, m.Body))
+				text := url.QueryEscape(fmt.Sprintf("[%s] %s. by GitHub Status", m.Status, m.Body))
 				if text != currentMessage {
 					_, err := http.Get(fmt.Sprintf("https://slack.com/api/chat.postMessage?token=%s&text=%s&channel=%s", token, text, channel))
 					if err != nil {
