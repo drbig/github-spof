@@ -4,9 +4,9 @@ GitHub's status change.
 
 You can install it as a simple wget or curl, you use our compiled binary.
 ```
-curl -LSs https://github.com/gianarb/github-spof/releases/download/0.2.0/github_spof_0.2.0_darwin_386 > github_spof
-curl -LSs https://github.com/gianarb/github-spof/releases/download/0.2.0/github_spof_0.2.0_linux_386 > github_spof
-curl -LSs https://github.com/gianarb/github-spof/releases/download/0.2.0/github_spof_0.2.0_linux_arm > github_spof
+curl -LSs https://github.com/gianarb/github-spof/releases/download/0.2.1/github_spof_0.2.1_darwin_386 > github_spof
+curl -LSs https://github.com/gianarb/github-spof/releases/download/0.2.1/github_spof_0.2.1_linux_386 > github_spof
+curl -LSs https://github.com/gianarb/github-spof/releases/download/0.2.1/github_spof_0.2.1_linux_arm > github_spof
 ```
 Make it executable and go!
 
