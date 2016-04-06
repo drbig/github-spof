@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"net/http"
 	"net/url"
 	"os"
@@ -37,7 +38,7 @@ func main() {
 		os.Exit(1)
 	}
 	channel, _ = url.QueryUnescape(channel)
-	ticker := time.NewTicker(5 * time.Second)
+	ticker := time.NewTicker(time.Duration(rand.Intn(ping)) * time.Second)
 	quit := make(chan struct{})
 	go func(token string, channel string) {
 		currentMessage := ""
@@ -47,19 +48,21 @@ func main() {
 				githubResponse, err := http.Get(fmt.Sprintf("https://status.github.com/api/last-message.json"))
 				if err != nil {
 					fmt.Printf("%s", err)
+					continue
 				}
 				var m GitHubStatus
 				byt, err := ioutil.ReadAll(githubResponse.Body)
 				if err != nil {
 					fmt.Printf("%s", err)
+					continue
 				}
 				err = json.Unmarshal(byt, &m)
 				if err != nil {
 					fmt.Printf("%s", err)
+					continue
 				}
 				text, _ := url.QueryUnescape(fmt.Sprintf("[%s] %s. by GitHub Status", m.Status, m.Body))
 				if text != currentMessage {
-					fmt.Printf("https://slack.com/api/chat.postMessage?token=%s&text=%s&channel=%s", token, text, channel)
 					_, err := http.Get(fmt.Sprintf("https://slack.com/api/chat.postMessage?token=%s&text=%s&channel=%s", token, text, channel))
 					if err != nil {
 						fmt.Printf("%s", err)
